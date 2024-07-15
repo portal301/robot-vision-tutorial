@@ -22,6 +22,6 @@
 ### QR code tracking
 
 <div align="center">
-  <img src="./qr_code/readmeImages/qrcode_affine_robotics.png" alt="image" style="width:28%;">
+  <img src="./qr_code/readmeImages/qrcode_affine_robotics.png" alt="image" style="width:20%;"> 
   <img src="./qr_code/readmeImages/sample.gif" alt="image" style="width:50%;">
 </div>
