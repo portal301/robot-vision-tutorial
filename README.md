@@ -10,6 +10,13 @@
   <img src="./readmeImages/example.jpg" alt="image" style="width:100%;">
 </div>
 
+### 3D Mesh
+<div align="center">
+  <img src="./readmeImages/pc2mesh.png" alt="image" style="width:100%;">
+</div>
+
+
+
 ### Camera Calibration
 <div align="center">
   <img src="./camera_calibration/readmeImages/sample1.png" alt="image" style="width:40%;">
