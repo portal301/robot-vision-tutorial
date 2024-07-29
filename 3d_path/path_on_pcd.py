@@ -124,7 +124,9 @@ vis = o3d.visualization.Visualizer()
 vis.create_window()
 
 # Load the point cloud from a PCD file
-pcd = o3d.io.read_point_cloud(os.path.join("pcd", "data.pcd"))
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+pcd = o3d.io.read_point_cloud(os.path.join(script_dir,"pcd", "data.pcd"))
 
 # Check if the point cloud is loaded successfully
 if pcd.is_empty():
