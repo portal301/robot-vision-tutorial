@@ -43,7 +43,7 @@ stereo_camera_right = ocam0
 R = np.array([0,0,0], dtype=np.float64) # Rotation matrix from stereo calibration
 # T = np.array(ocam2.coordinate["tvec"]) - np.array(ocam0.coordinate["tvec"])
 # T = np.array([0.37,-0.045,0])
-T = np.array([0.110,0,0], dtype=np.float64) # Translation vector from stereo calibration
+T = np.array([0.05,0,0], dtype=np.float64) # Translation vector from stereo calibration
 
 # Open video capture for two cameras
 cam_left = cv2.VideoCapture(stereo_camera_left.camera_index)  # Change the index depending on your cameras
@@ -79,18 +79,18 @@ right_map1, right_map2 = cv2.initUndistortRectifyMap(
 
 # StereoBM object for disparity computation
 # stereo = cv2.StereoBM_create(numDisparities=16, blockSize=15)
-stereo = cv2.StereoBM_create(numDisparities=16*4, blockSize=21)
+stereo = cv2.StereoBM_create(numDisparities=16*4, blockSize=31)
 
 
 # Create StereoSGBM object
 stereo_sgbm = cv2.StereoSGBM_create(
     minDisparity=0,
-    numDisparities=16,  # Number of disparities to search (multiple of 16)
-    blockSize=21,        # Block size (odd number, typically between 5-21)
+    numDisparities=16*4,  # Number of disparities to search (multiple of 16)
+    blockSize=31,        # Block size (odd number, typically between 5-21)
     P1=8 * 3 * 5 ** 2,  # Penalty for disparity change by +/- 1
     P2=32 * 3 * 5 ** 2, # Penalty for disparity change by more than 1
     disp12MaxDiff=1,
-    uniquenessRatio=10,
+    uniquenessRatio=1,
     speckleWindowSize=100,
     speckleRange=32
 )

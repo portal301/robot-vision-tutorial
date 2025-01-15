@@ -30,13 +30,13 @@ class MultiCameraCapture:
             os.makedirs(self.save_folder)
 
     def capture_image(self, cap, camera_index, warmup_frames=5, image_size=(640, 480)):
+        # Set the camera to a high resolution (e.g., 1920x1080 or higher depending on your camera)
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, image_size[0])
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, image_size[1])
         # Discard initial frames to allow the camera to stabilize
         for _ in range(warmup_frames):
             cap.read()
 
-        # Set the camera to a high resolution (e.g., 1920x1080 or higher depending on your camera)
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, image_size[0])
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, image_size[1])
 
         # Capture the actual image
         ret, frame = cap.read()
@@ -48,11 +48,11 @@ class MultiCameraCapture:
         else:
             print(f"Failed to capture from Camera {camera_index}")
 
-    def capture_from_all(self):
+    def capture_from_all(self, image_size=(640, 480)):
         threads = []
         for i, cap in enumerate(self.captures):
             # Create and start a new thread for each camera
-            t = threading.Thread(target=self.capture_image, args=(cap, self.camera_indices[i]))
+            t = threading.Thread(target=self.capture_image, args=(cap, self.camera_indices[i], 3, image_size))
             threads.append(t)
             t.start()
 
