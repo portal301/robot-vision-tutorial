@@ -5,7 +5,8 @@ from PIL import Image
 
 
 # Load the lena image
-image_path = os.path.join('image','lena.png')
+script_dir = os.path.dirname(os.path.abspath(__file__))
+image_path = os.path.join(script_dir,'image','lena.png')
 image = Image.open(image_path)
 image = image.convert('RGB')  # Ensure image is in RGB format
 

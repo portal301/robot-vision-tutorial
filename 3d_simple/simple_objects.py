@@ -1,9 +1,16 @@
 import open3d as o3d
 import numpy as np
 
+# Create a origin coorindate system
+origin = o3d.geometry.TriangleMesh.create_coordinate_frame(size=2.0, origin=[0, 0, 0])
+
 # Create a sphere mesh
 sphere = o3d.geometry.TriangleMesh.create_sphere(radius=1.0)
 sphere.paint_uniform_color([0.1, 0.1, 0.7])  # Set color for the sphere
+
+# Create a sphere edges
+sphere_edges = o3d.geometry.LineSet.create_from_triangle_mesh(sphere)
+sphere_edges.paint_uniform_color([1, 1, 1])  # 흰색 윤곽선
 
 # Create a cube mesh
 cube = o3d.geometry.TriangleMesh.create_box(width=1.0, height=1.0, depth=1.0)
@@ -61,23 +68,27 @@ cube_vertices = np.array(cube.vertices)
 edge_set = o3d.geometry.LineSet()
 edge_set.points = o3d.utility.Vector3dVector(cube_vertices)
 edge_set.lines = o3d.utility.Vector2iVector(cube_edges)
-edge_set.colors = o3d.utility.Vector3dVector([[0, 1, 0]])  # Green color for the edges
-
-# Create a Visualizer object
-vis = o3d.visualization.Visualizer()
-vis.create_window()
+edge_set.colors = o3d.utility.Vector3dVector([[0, 1, 0] for _ in cube_edges])  # Green color for the edges
 
 
-# Add the sphere, cube, and lines to the visualizer
-vis.add_geometry(sphere)
-vis.add_geometry(cube)
-vis.add_geometry(edge_set)
-vis.add_geometry(point_cloud)
+o3d.visualization.draw_geometries([origin, sphere, sphere_edges, cube, edge_set, point_cloud])
 
-render_option = vis.get_render_option()
-render_option.point_size = 5
+# # Create a Visualizer object
+# vis = o3d.visualization.Visualizer()
+# vis.create_window()
 
 
-# Run the visualizer
-vis.run()
-vis.destroy_window()
+# # Add the sphere, cube, and lines to the visualizer
+# vis.add_geometry(origin)
+# vis.add_geometry(sphere)
+# vis.add_geometry(cube)
+# vis.add_geometry(edge_set)
+# vis.add_geometry(point_cloud)
+
+# render_option = vis.get_render_option()
+# render_option.point_size = 5
+
+
+# # Run the visualizer
+# vis.run()
+# vis.destroy_window()

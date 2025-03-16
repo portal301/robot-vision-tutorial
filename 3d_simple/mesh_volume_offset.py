@@ -47,6 +47,26 @@ def offset_mesh(mesh, offset_distance):
     
     return offset_mesh
 
+def clip_mesh(mesh, plane_height=0.2):
+    """
+    특정 Z 축을 기준으로 평면을 잘라서 내부를 보이게 만드는 함수
+    """
+    vertices = np.asarray(mesh.vertices)
+    triangles = np.asarray(mesh.triangles)
+
+    # 특정 Z 값보다 작은 삼각형만 남기기
+    mask = np.all(vertices[triangles][:, :, 2] > plane_height, axis=1)
+    clipped_triangles = triangles[mask]
+
+    # 새로운 메쉬 만들기
+    clipped_mesh = o3d.geometry.TriangleMesh()
+    clipped_mesh.vertices = o3d.utility.Vector3dVector(vertices)
+    clipped_mesh.triangles = o3d.utility.Vector3iVector(clipped_triangles)
+    clipped_mesh.compute_vertex_normals()
+    return clipped_mesh
+
+
+
 def visualize_meshes(original_meshes, offset_meshes):
     # Create a visualizer object
     vis = o3d.visualization.Visualizer()
@@ -59,7 +79,7 @@ def visualize_meshes(original_meshes, offset_meshes):
     # Add offset meshes to the visualizer
     for mesh in offset_meshes:
         vis.add_geometry(mesh)
-    
+
     # Get the render option to set visualization settings
     render_option = vis.get_render_option()
     
@@ -81,5 +101,14 @@ cube_mesh = create_cube_mesh(size=1.0, color=[0, 1, 0])  # Green cube
 offset_sphere_mesh = offset_mesh(sphere_mesh, offset_distance=0.2)
 offset_cube_mesh = offset_mesh(cube_mesh, offset_distance=0.2)
 
+offset_sphere_edges = o3d.geometry.LineSet.create_from_triangle_mesh(offset_sphere_mesh)
+offset_sphere_edges.paint_uniform_color([1, 1, 1])  # 흰색 윤곽선
+
+offset_cube_mesh_edges = o3d.geometry.LineSet.create_from_triangle_mesh(offset_cube_mesh)
+offset_cube_mesh_edges.paint_uniform_color([1, 1, 1])  # 흰색 윤곽선
+
+
 # Visualize original and offset meshes
-visualize_meshes([sphere_mesh, cube_mesh], [offset_sphere_mesh, offset_cube_mesh])
+# visualize_meshes([sphere_mesh, cube_mesh], [offset_sphere_mesh, offset_cube_mesh])
+visualize_meshes([sphere_mesh, cube_mesh], [offset_sphere_edges, offset_cube_mesh_edges])
+

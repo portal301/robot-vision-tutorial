@@ -14,5 +14,8 @@ def convert_to_binary(image_path, output_path, threshold=128):
 if __name__ == "__main__":
     # Convert lena.png to a binary image and save as binary_lena.png
     # join path with the /image folder
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    image_dir = os.path.join(script_dir,"image")
     
-    convert_to_binary( os.path.join("image","lena.png"),  os.path.join("image","lena_binary.png"))
+    convert_to_binary( os.path.join(image_dir,"lena.png"),  os.path.join(image_dir,"lena_binary.png"))

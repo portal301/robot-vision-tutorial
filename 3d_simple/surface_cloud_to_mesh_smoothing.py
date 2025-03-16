@@ -20,7 +20,7 @@ def smooth_mesh(mesh, smoothing_iterations=10):
     mesh = mesh.filter_smooth_simple(number_of_iterations=smoothing_iterations)
     return mesh
 
-def visualize_mesh(mesh, title, color):
+def visualize_mesh(mesh, title:str, color):
     vis = o3d.visualization.Visualizer()
     vis.create_window(window_name=title)
 
@@ -56,7 +56,7 @@ def show_point_cloud():
     point_cloud = generate_point_cloud(x, y, z_noisy)
     # Create a visualizer object
     vis = o3d.visualization.Visualizer()
-    vis.create_window()
+    vis.create_window(window_name="Point Cloud")
 
     vis.add_geometry(point_cloud)
 

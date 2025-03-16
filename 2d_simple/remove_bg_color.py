@@ -33,13 +33,17 @@ def invert_black_and_white(img):
     return inverted_img
 
 if __name__ == "__main__":
-    img = cv2.imread(os.path.join("image","grating_original.png"))
+
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    image_dir = os.path.join(script_dir,"image")
+
+    img = cv2.imread(os.path.join(image_dir,"grating_original.png"))
     img_green2black = convert_green_to_color(img, conversion_color=[0, 0, 0])   # convert green to black
     img_green2white = convert_green_to_color(img, conversion_color=[255, 255, 255])  # convert green to white
     img_binary = convert_to_binary(img_green2black)
     inverted_img = invert_black_and_white(img_binary)
 
-    cv2.imwrite(os.path.join("image","grating_green2black.png"), img_green2black)
-    cv2.imwrite(os.path.join("image","grating_green2white.png"), img_green2white)
-    cv2.imwrite(os.path.join("image","grating_binary.png"), img_binary)
-    cv2.imwrite(os.path.join("image","grating_inverted.png"), inverted_img)
+    cv2.imwrite(os.path.join(image_dir,"grating_green2black.png"), img_green2black)
+    cv2.imwrite(os.path.join(image_dir,"grating_green2white.png"), img_green2white)
+    cv2.imwrite(os.path.join(image_dir,"grating_binary.png"), img_binary)
+    cv2.imwrite(os.path.join(image_dir,"grating_inverted.png"), inverted_img)

@@ -98,8 +98,9 @@ if __name__ == '__main__':
 
     # Display the original, convex hull, and lines images
     plt.figure(figsize=[10, 10])
-    plt.subplot(221), plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)), plt.title('Original Image')
-    plt.subplot(222), plt.imshow(cv2.cvtColor(convex_hull_image, cv2.COLOR_BGR2RGB)), plt.title('Convex Hulls and Offset Contours')
-    plt.subplot(223), plt.imshow(cv2.cvtColor(lines_image, cv2.COLOR_BGR2RGB)), plt.title('Parallel Lines with Intersections')
-    plt.subplot(224), plt.imshow(cv2.cvtColor(path_image, cv2.COLOR_BGR2RGB)), plt.title('Path')
+    plt.subplot(231), plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB)), plt.title('Original Image')
+    plt.subplot(232), plt.imshow(dilated_image, cmap='gray'), plt.title('Convex Hulls and Offset Contours')
+    plt.subplot(233), plt.imshow(cv2.cvtColor(convex_hull_image, cv2.COLOR_BGR2RGB)), plt.title('Convex Hulls and Offset Contours')
+    plt.subplot(234), plt.imshow(cv2.cvtColor(lines_image, cv2.COLOR_BGR2RGB)), plt.title('Parallel Lines with Intersections')
+    plt.subplot(235), plt.imshow(cv2.cvtColor(path_image, cv2.COLOR_BGR2RGB)), plt.title('Path')
     plt.show()
